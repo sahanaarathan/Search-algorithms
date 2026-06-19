@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Binary Search Visualizer</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    text-align:center;
+    background:#f4f4f4;
+    padding:30px;
+}
+
+.container{
+    background:white;
+    max-width:600px;
+    margin:auto;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,0.2);
+}
+
+input{
+    width:80%;
+    padding:10px;
+    margin:10px;
+}
+
+button{
+    padding:10px 20px;
+    cursor:pointer;
+}
+
+#result{
+    margin-top:20px;
+    font-size:20px;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Binary Search</h1>
+
+    <input type="text"
+    id="array"
+    placeholder="Enter sorted numbers separated by commas">
+
+    <br>
+
+    <input type="number"
+    id="target"
+    placeholder="Enter target value">
+
+    <br>
+
+    <button onclick="search()">Search</button>
+
+    <div id="result"></div>
+
+</div>
+
+<script>
+
+function binarySearch(arr,target){
+
+    let left=0;
+    let right=arr.length-1;
+
+    while(left<=right){
+
+        let mid=Math.floor((left+right)/2);
+
+        if(arr[mid]===target){
+            return mid;
+        }
+
+        if(arr[mid]<target){
+            left=mid+1;
+        }
+        else{
+            right=mid-1;
+        }
+    }
+
+    return -1;
+}
+
+function search(){
+
+    let arr=document.getElementById("array")
+    .value
+    .split(",")
+    .map(Number);
+
+    let target=Number(
+        document.getElementById("target").value
+    );
+
+    let index=binarySearch(arr,target);
+
+    if(index!==-1){
+        document.getElementById("result").innerHTML=
+        `Element found at index ${index}`;
+    }
+    else{
+        document.getElementById("result").innerHTML=
+        "Element not found";
+    }
+}
+</script>
+
+</body>
+</html>
